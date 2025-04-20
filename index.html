@@ -2,29 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bongo Cat - Hit the Object</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dual Hit Cat w/ Buttons</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    #wrapper {
+      position: relative;
+      width: 90%;
+      max-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #cat {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      object-fit: contain;
+      z-index: 2;
+      position: relative;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    .hit-object {
+      width: 80px;
+      height: auto;
+      object-fit: contain;
+      position: absolute;
+      bottom: -10px;
+      z-index: 1;
+    }
+
+    #left-object {
+      left: 0;
+    }
+
+    #right-object {
+      right: 0;
+    }
+
+    .controls {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .hit-button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .hit-button:hover {
+      background: #444;
+    }
+
+    @media (max-width: 600px) {
+      #wrapper {
+        width: 90%;
+      }
+
+      .hit-object {
+        width: 60px;
+      }
+
+      #cat {
+        max-width: 150px;
+      }
+
+      .controls {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hit-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="cat-container">
-    <!-- Cat Image -->
-    <img src="cat_idle.png" alt="Cat Idle" id="cat" />
-    
-    <!-- Custom Object (e.g., drum) that the cat will hit -->
-    <img src="custom_object.png" alt="Custom Object" id="object" />
-    
-    <!-- Audio files for left and right paw hits -->
-    <audio id="left-sound" src="left.mp3" preload="auto"></audio>
-    <audio id="right-sound" src="right.mp3" preload="auto"></audio>
+  <div id="wrapper">
+    <img id="cat" src="cat-normal.png" alt="Cat" />
+    <img id="left-object" class="hit-object" src="left-object.png" alt="Left Object" />
+    <img id="right-object" class="hit-object" src="right-object.png" alt="Right Object" />
   </div>
 
   <div class="controls">
-    <!-- Buttons for triggering each paw -->
-    <button id="left-btn">Left Paw</button>
-    <button id="right-btn">Right Paw</button>
+    <button id="leftBtn" class="hit-button">Left</button>
+    <button id="rightBtn" class="hit-button">Right</button>
   </div>
 
-  <script src="script.js"></script>
+  <audio id="left-sound" src="left-sound.mp3" preload="auto"></audio>
+  <audio id="right-sound" src="right-sound.mp3" preload="auto"></audio>
+
+  <script>
+    const cat = document.getElementById("cat");
+    const leftSound = document.getElementById("left-sound");
+    const rightSound = document.getElementById("right-sound");
+    const leftBtn = document.getElementById("leftBtn");
+    const rightBtn = document.getElementById("rightBtn");
+
+    function playLeft() {
+      cat.src = "cat-left.png";
+      leftSound.currentTime = 0;
+      leftSound.play();
+      setTimeout(() => {
+        cat.src = "cat-normal.png";
+      }, 150);
+    }
+
+    function playRight() {
+      cat.src = "cat-right.png";
+      rightSound.currentTime = 0;
+      rightSound.play();
+      setTimeout(() => {
+        cat.src = "cat-normal.png";
+      }, 150);
+    }
+
+    leftBtn.addEventListener("click", playLeft);
+    rightBtn.addEventListener("click", playRight);
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "a" || e.key === "A") playLeft();
+      if (e.key === "l" || e.key === "L") playRight();
+    });
+  </script>
 </body>
 </html>
