@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bongo Cat - Hit the Object</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cat-container">
+    <!-- Cat Image -->
+    <img src="cat_idle.png" alt="Cat Idle" id="cat" />
+    
+    <!-- Custom Object (e.g., drum) that the cat will hit -->
+    <img src="custom_object.png" alt="Custom Object" id="object" />
+    
+    <!-- Audio files for left and right paw hits -->
+    <audio id="left-sound" src="left.mp3" preload="auto"></audio>
+    <audio id="right-sound" src="right.mp3" preload="auto"></audio>
+  </div>
+
+  <div class="controls">
+    <!-- Buttons for triggering each paw -->
+    <button id="left-btn">Left Paw</button>
+    <button id="right-btn">Right Paw</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
